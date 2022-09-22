@@ -22,6 +22,11 @@ HW_quantize(ImagePtr I1, int levels, bool dither, ImagePtr I2)
 
 	// init lookup table
 	int i, lut[MXGRAY];
+
+	// find the value to increment each grey level by
+	// Example: 4 levels, then scale would be 64 so the grey levels would be 
+	// mapped to 0, 64, 128, 192
+	// so the pixel intensities will fall into one of these levels
     double scale = MXGRAY / levels;
 	for(i=0; i<MXGRAY; ++i) {
         lut[i] = scale * (int) (i / scale);
@@ -47,6 +52,7 @@ HW_quantize(ImagePtr I1, int levels, bool dither, ImagePtr I2)
             int randNum, val;
 
             for(i=0; i<total; i++) {
+				// add the noise to the original pixel value
                 randNum = (rand() % (2*m + 1)) - m;
                 val = p1[i] + randNum;
 

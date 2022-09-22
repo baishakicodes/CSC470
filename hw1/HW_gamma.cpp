@@ -20,6 +20,9 @@ HW_gammaCorrect(ImagePtr I1, double gamma, ImagePtr I2)
 	int total = w * h;
 
 	// init lookup table
+	// apply gamma formula by first normalizing the intensity
+	// then raise it to 1/gamma
+	// finally bring the intensity back to 0-255 range by multiplying by 255
 	int i, lut[MXGRAY];
 	for(i=0; i<MXGRAY; ++i) {
         lut[i] = pow(i/255.0, 1/gamma) * 255;

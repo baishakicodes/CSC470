@@ -23,6 +23,9 @@ HW_clip(ImagePtr I1, int t1, int t2, ImagePtr I2)
 	int total = w * h;
 
 	// init lookup table
+	// any pixel values less than t1 will be clipped to t1
+	// any pixel values between t1 and t2 will stay the same
+	// any pixel values greater than t2 will be clipped to t2
 	int i, lut[MXGRAY];
 	for(i=0; i<MXGRAY; ++i) {
         if(i<t1) lut[i] = t1;

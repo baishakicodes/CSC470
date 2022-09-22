@@ -210,4 +210,3 @@ void histoMatchApprox(ImagePtr I1, ImagePtr targetHisto, ImagePtr I2)
 
 
 }
-

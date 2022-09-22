@@ -23,10 +23,12 @@ HW_contrast(ImagePtr I1, double brightness, double contrast, ImagePtr I2)
 	int total = w * h;
 
 	// init lookup table
+	// apply contrast enhancement by stretching pixel value by reference value 128
+	// then multiply by the contrast and shift it by the brightness amount
 	int i, lut[MXGRAY];
     double shift = brightness + 128;
 	for(i=0; i<MXGRAY; ++i) {
-        int newValue = shift + ROUND((i-128)* contrast);
+        int newValue = shift + ROUND((i-128) * contrast);
         lut[i] = CLIP(newValue, 0, MaxGray);
     }
 

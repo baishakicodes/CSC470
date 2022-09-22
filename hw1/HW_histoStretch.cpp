@@ -29,6 +29,10 @@ HW_histoStretch(ImagePtr I1, int t1, int t2, ImagePtr I2)
         else clipLUT[i] = i;
     }
 
+	// apply histostretch formula
+	// first make sure t1 and t2 are different to avoide dividing by 0
+	// then shift intensity values by t1, normalize to 0-1 range
+	// bring back to 0-255 range by multiplying by 255
     if (t1 == t2) t2++;
     for(i=0; i<MXGRAY; ++i) {
         scaleLUT[i] = (double) ((i-t1) * 255.0) / (t2 - t1);
@@ -50,7 +54,9 @@ HW_histoStretch(ImagePtr I1, int t1, int t2, ImagePtr I2)
 
 		for(i=0; i<total; i++) p2[i] = clipLUT[p1[i]];	// use clipLUT[] to eval output, first we clip
 
-        for(i=0; i<total; i++) p2[i] = scaleLUT[p2[i]]; // use clipLUT[] to eval output, apply histo stretch function
+		// use scaleLUT[] to eval output, apply histo stretch function
+		// to output image after it was clipped
+        for(i=0; i<total; i++) p2[i] = scaleLUT[p2[i]];
 	}
 
 }
